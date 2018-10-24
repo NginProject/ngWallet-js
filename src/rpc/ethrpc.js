@@ -172,7 +172,7 @@ class EthApi {
       endPageIndex: number,
       orderByOldest: boolean
     ): Promise<Array<string>> {
-      return this.rpc.call('ngin_getAddressTransactions', [
+      return this.rpc.call('ngind_getAddressTransactions', [
         address,
         blockNumFloor,
         blockNumCeil,
