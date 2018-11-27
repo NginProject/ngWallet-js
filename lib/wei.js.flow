@@ -51,9 +51,9 @@ export default class Wei {
   }
 
   getFiat(r: number, decimals: number = 2): string {
-    const rate = (r === null || typeof r === 'undefined') ?
-      ZERO :
-      new BigNumber(r.toString());
+    const rate = (r === null || typeof r === 'undefined')
+      ? ZERO
+      : new BigNumber(r.toString());
     return this.value().dividedBy(ETHER).mul(rate).toFixed(decimals);
   }
 

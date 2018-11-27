@@ -39,4 +39,3 @@ export interface IVaultProvider {
     importMnemonic(passphrase: string, name: string, description: string,
       mnemonic: string, path: string, chain: string): Promise<string>
 }
-

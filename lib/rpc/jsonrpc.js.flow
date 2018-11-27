@@ -26,6 +26,7 @@ export interface Transport {
 
 export class JsonRpcError extends Error {
     code: number;
+
     constructor(error: {code: number, message: string}) {
       super(error.message);
       this.message = error.message;
@@ -36,6 +37,7 @@ export class JsonRpcError extends Error {
 
 export default class JsonRpc {
     requestSeq: number;
+
     transport: Transport;
 
     constructor(transport: Transport) {
@@ -56,7 +58,7 @@ export default class JsonRpc {
       return this.transport.request(request).then((json) => {
         if (json.result || json.result === false || json.result === null) {
           return json.result;
-        } else if (json.error) {
+        } if (json.error) {
           throw new JsonRpcError(json.error);
         } else {
           throw new Error(`Unknown JSON RPC response: ${JSON.stringify(json)},

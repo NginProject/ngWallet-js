@@ -1,6 +1,8 @@
 // @flow
 import assert from 'assert';
-import type { IVaultProvider, Account, TxSignRequest, Contact } from './types';
+import type {
+  IVaultProvider, Account, TxSignRequest, Contact,
+} from './types';
 
 function notNull(value: any, param: string) {
   return assert(value, `${param} must not be null`);

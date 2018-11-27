@@ -9,6 +9,7 @@ const baseHeaders = {
 
 export class HttpTransport implements Transport {
     url: string;
+
     headers: any;
 
     constructor(url: string, headers: any) {

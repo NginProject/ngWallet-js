@@ -3,11 +3,12 @@ import kbpgp from 'kbpgp';
 
 export default class Verify {
     ring: kbpgp.keyring.KeyRing;
+
     constructor() {
       this.ring = new kbpgp.keyring.KeyRing();
     }
 
-  /**
+    /**
    * Initialize with armored public keys
    */
     init(publicKeys: Array<string>): void {

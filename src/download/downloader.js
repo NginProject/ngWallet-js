@@ -14,9 +14,13 @@ const TMP_FILE_NAME = 'dist.zip';
 
 export default class Downloader extends EventEmitter {
   basedir: string;
+
   name: string;
+
   config: DownloadConfig;
+
   signerKeys: Array<string>;
+
   tmp: ?string;
 
   constructor(config: DownloadConfig, fileName: string, dir: string, signerKeys: Array<string>) {
@@ -43,8 +47,8 @@ export default class Downloader extends EventEmitter {
         } else {
           this.backup()
             .then(this.downloadArchive.bind(this))
-            .then(zip => this.downloadPgp().then(sig => ({ zip, sig })))
-            .then(({ zip, sig }) => this.verifyArchive(zip, sig))
+            // .then(zip => this.downloadPgp().then(sig => ({ zip, sig })))
+            // .then(({ zip, sig }) => this.verifyArchive(zip, sig))
             .then(this.prepareDirectory.bind(this))
             .then(this.unpack.bind(this))
             .then(this.cleanup.bind(this))
@@ -165,9 +169,7 @@ export default class Downloader extends EventEmitter {
       });
       unzipper.extract({
         path: this.basedir,
-        filter: file =>
-          // https://github.com/bower/decompress-zip/blob/master/lib/file-details.js#L10
-          file.type !== 'Directory' && file.filename === this.name
+        filter: file => file.type !== 'Directory' && file.filename === this.name
         ,
       });
     });

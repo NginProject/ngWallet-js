@@ -16,7 +16,7 @@ export default class InMemoryProvider implements IVaultProvider {
       this.contracts = {};
     }
 
-  /**
+    /**
      * Returns the list of all not hidden (by default) accounts from the keystore.
      * @param chain - chain name
      * @param showHidden - also show hidden accounts

@@ -17,4 +17,3 @@ export { default as VaultJsonRpcProvider } from './vault/providers/rpc';
 export { default as Wallet } from './wallet';
 
 export { default as contracts } from './contracts';
-

@@ -7,6 +7,7 @@ import type { CallObject, SyncingResult } from './types';
 
 class EthApi {
     rpc: JsonRpc;
+
     compile: object;
 
     constructor(jsonRpc: JsonRpc) {
@@ -118,8 +119,8 @@ class EthApi {
      * Returns a block matching the block number or block hash.
      */
     getBlock(hashOrNumber: string | number | 'earliest' | 'latest' | 'pending', full: boolean = false) {
-      const method = (typeof hashOrNumber === 'string' && hashOrNumber.indexOf('0x') === 0) ?
-        'ngin_getBlockByHash' : 'ngin_getBlockByNumber';
+      const method = (typeof hashOrNumber === 'string' && hashOrNumber.indexOf('0x') === 0)
+        ? 'ngin_getBlockByHash' : 'ngin_getBlockByNumber';
       let block = hashOrNumber;
       if (method === 'ngin_getBlockByNumber') {
         if (!format.isPredefinedBlockNumber(hashOrNumber)) {
@@ -170,7 +171,7 @@ class EthApi {
       standardOrContract: string,
       beginPageIndex: number,
       endPageIndex: number,
-      orderByOldest: boolean
+      orderByOldest: boolean,
     ): Promise<Array<string>> {
       return this.rpc.call('ngind_getAddressTransactions', [
         address,
@@ -180,10 +181,9 @@ class EthApi {
         standardOrContract,
         beginPageIndex,
         endPageIndex,
-        orderByOldest
+        orderByOldest,
       ]);
     }
-
 }
 
 class NetApi {
@@ -243,7 +243,7 @@ class ExtApi {
     }
 
     getBlocks(from: number, to: number) {
-      let requests = [];
+      const requests = [];
 
       for (let i = from; i <= to; i += 1) {
         requests.push(this.rpc.newBatchRequest('ngin_getBlockByNumber', [format.toHex(i), false]));
@@ -259,15 +259,14 @@ class ExtApi {
       }
 
       const requests = formattedNumber.map(
-        (blockNumber) => this.rpc.newBatchRequest('ngin_getBlockByNumber', [blockNumber, false])
-      )
+        blockNumber => this.rpc.newBatchRequest('ngin_getBlockByNumber', [blockNumber, false]),
+      );
       return this.rpc.batch(requests).then(formatBatchBlockResponse);
     }
 
     getBalances(addresses: Array<string>, blockNumber: number | string = 'latest') {
       const balances = {};
-      const requests = addresses.map(a =>
-        this.rpc.newBatchRequest('ngin_getBalance', [a, blockNumber], (resp) => { balances[a] = resp.result; }));
+      const requests = addresses.map(a => this.rpc.newBatchRequest('ngin_getBalance', [a, blockNumber], (resp) => { balances[a] = resp.result; }));
 
       return this.rpc.batch(requests).then(() => balances);
     }
@@ -278,8 +277,7 @@ class ExtApi {
      * @returns {Promise.<any>}
      */
     getTransactions(hashes: Array<string>): Promise<any> {
-      const requests = hashes.map(h =>
-        this.rpc.newBatchRequest('ngin_getTransactionByHash', [h]));
+      const requests = hashes.map(h => this.rpc.newBatchRequest('ngin_getTransactionByHash', [h]));
       return this.rpc.batch(requests);
     }
 
@@ -290,21 +288,24 @@ class ExtApi {
       const results = {};
       const responseHandler = id => (resp) => { results[id] = resp; };
 
-      const requests = calls.map(c =>
-        this.rpc.newBatchRequest(
-          'ngin_call',
-          [{ to: c.to, data: c.data }, blockNumber],
-          responseHandler(c.id),
-        ));
+      const requests = calls.map(c => this.rpc.newBatchRequest(
+        'ngin_call',
+        [{ to: c.to, data: c.data }, blockNumber],
+        responseHandler(c.id),
+      ));
       return this.rpc.batch(requests).then(() => results);
     }
 }
 
 export default class EthRpc {
     rpc: JsonRpc;
+
     eth: EthApi;
+
     net: NetApi;
+
     web3: Web3Api;
+
     ext: ExtApi;
 
     constructor(jsonRpc: JsonRpc) {

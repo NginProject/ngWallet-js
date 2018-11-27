@@ -1,7 +1,9 @@
 // @flow
 import assert from 'assert';
 import JsonRpc from '../../rpc/jsonrpc';
-import type { IVaultProvider, Account, TxSignRequest, Address } from '../types';
+import type {
+  IVaultProvider, Account, TxSignRequest, Address,
+} from '../types';
 
 export default class JsonRpcProvider implements IVaultProvider {
     rpc: JsonRpc;

@@ -12,8 +12,11 @@ export default class NodeChecker {
     ethRpc: EthRpc;
 
     static ETC_MAINNET_GENESIS: string = '0xd4e56740f876aef8c010b86a40d5f56745a118d0906a34e69aec8c0db1cb8fa3';
+
     static ETC_MORDEN_GENESIS: string = '0x0cd786a2425d16f152c658316c423e6ce1181e15c3295826d7c9904cba9ce303';
+
     static ETC_BLOCK_2000000: string = '0x3b56d9e73aa7cac630eb718c24923757a7d08b2b1a52d62676a1749e1f345be3';
+
     static ETH_BLOCK_2000000: string = '0xc0f4906fea23cf6f3cce98cb44e8e1449e455b28d684dfa9ff65426495584de6';
 
     constructor(ethRpc: EthRpc) {
@@ -43,7 +46,7 @@ export default class NodeChecker {
       //           if (block2000000.hash === NodeChecker.ETH_BLOCK_2000000) {
       //             resolve({ chain: 'mainnet', chainId: 1 });
       //           } else if (block2000000.hash === NodeChecker.ETC_BLOCK_2000000) {
-                  resolve({ chain: 'mainnet', chainId: 111 });
+        resolve({ chain: 'mainnet', chainId: 111 });
       //           } else {
       //             reject(new Error(`Unknown chain block#2000000 ${block2000000.hash}`));
       //           }
