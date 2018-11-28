@@ -47,8 +47,8 @@ export default class Downloader extends EventEmitter {
         } else {
           this.backup()
             .then(this.downloadArchive.bind(this))
-            .then(zip => this.downloadPgp().then(sig => ({ zip, sig })))
-            .then(({ zip, sig }) => this.verifyArchive(zip, sig))
+            // .then(zip => this.downloadPgp().then(sig => ({ zip, sig })))
+            // .then(({ zip, sig }) => this.verifyArchive(zip, sig))
             .then(this.prepareDirectory.bind(this))
             .then(this.unpack.bind(this))
             .then(this.cleanup.bind(this))
